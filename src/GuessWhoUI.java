@@ -42,7 +42,7 @@ public class GuessWhoUI {
    private void createUI() {
        frame = new JFrame("Guess Who");
        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-       frame.setResizable(false);
+       frame.setResizable(true);
        
        //default layers 
 
