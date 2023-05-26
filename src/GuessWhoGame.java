@@ -11,6 +11,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Random;
 
 
@@ -28,11 +29,16 @@ public class GuessWhoGame extends JPanel implements MouseListener, KeyListener, 
 	private Character selectedChar; // the character to guess
 	
 	int guesses = 5; //5 guesses 
+	ArrayList<String> names;
 	
-	public GuessWhoGame() {
-		gameBoard = new Character[boardSize][boardSize]; // make the  board
-		populateGameBoard(); // populate the gameBoard w/ characters
-	}
+    public GuessWhoGame() {
+        gameBoard = new Character[boardSize][boardSize];
+        names = new ArrayList<String>(); // Initialize the names ArrayList
+        populateNames(); // Populate the names ArrayList
+        populateGameBoard();
+    }
+
+
 	
 	public void populateGameBoard() {
 		//populates the board w/ characters
@@ -54,23 +60,19 @@ public class GuessWhoGame extends JPanel implements MouseListener, KeyListener, 
 		}
 		
 	}
+    public void populateNames() {
+        String[] nameArray = {"Cooper", "Lance", "Jaden", "Connor", "Christian",
+                              "Arhaan", "Adam", "Von", "Coopaloop", "Zip",
+                              "Skiddles", "Pluey", "Wuffez", "Bhqrone", "Mr. David",
+                              "Guiness", "Neo", "Jumbo", "Milo", "Latte",
+                              "Mocha", "Zaia", "Kona", "Finn", "Simba", "Cash"};
+        names.addAll(Arrays.asList(nameArray));
+    }
 	
     private String randomName() {
         // Generate and return a random name
     	// pull from an ArrayList so that each Char on the 5x5 has a unique name
-    	
-    	ArrayList<String> names = new ArrayList<String>();
-    	
-    	// have at least 25 UNIQUE names
-    	// DO NOT have repeat names because you dont want to affect potential 
-    	String[] nameArray = {"Cooper", "Lance", "Jaden", "Connor", "Christian",
-    					  "Arhaan", "Adam", "Von", "Coopaloop", "Zip", 
-    					  "Skiddles", "Pluey", "Wuffez", "Bhqrone", "Mr. David",
-    					  "Guiness", "Neo", "Jumbo", "Milo", "Latte", 
-    					  "Mocha", "Zaia", "Kona", "Finn", "Simba", "Cash"};
-    	
-        //used to add all elements of an array to a List
-        names.addAll(Arrays.asList(nameArray));
+
         
         Random random = new Random();
         int index = random.nextInt(names.size());
@@ -159,7 +161,7 @@ public class GuessWhoGame extends JPanel implements MouseListener, KeyListener, 
 	}
 	
 	public void startGame() {
-	    populateGameBoard();
+	  //  populateGameBoard();
 	    selectRandomChar();
 	    
 	    for(int r = 0; r < 5; r++) {
