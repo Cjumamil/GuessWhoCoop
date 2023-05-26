@@ -66,7 +66,7 @@ public class GuessWhoUI {
                ImageIcon hairColor = new ImageIcon("hair" + character.getHair() + ".png"); // skin color
                ImageIcon shades = new ImageIcon("shades.png");
                ImageIcon mouth = new ImageIcon("mouthSmile.png");
-               ImageIcon mouth2 = new ImageIcon("mouthMeh.png");
+               ImageIcon mouth2 = new ImageIcon("mouthMehNew.png");
 
 
 
@@ -103,8 +103,12 @@ public class GuessWhoUI {
                button.addActionListener(new ActionListener() {
                    public void actionPerformed(ActionEvent e) {
                        // Handle button click event
+                	   //call to guessCheck here
+                	   
+                	   
                        // You can perform actions related to the clicked character here
                 	   System.out.println(character.getName() + " was guessed");
+                	  
                 	   //game.checkGuess(character.getName());
                    }
                });

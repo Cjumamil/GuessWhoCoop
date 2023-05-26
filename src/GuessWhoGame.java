@@ -171,7 +171,7 @@ public class GuessWhoGame extends JPanel implements MouseListener, KeyListener, 
 	  
 	}
 	
-	public boolean guessFunction() {
+	public boolean guessCheck() {
 		if(guesses > 0) {
 			return true;
 			//still guesses remaining, continue game
@@ -258,7 +258,7 @@ public class GuessWhoGame extends JPanel implements MouseListener, KeyListener, 
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
 		
-		guessFunction(); 
+	
 		
 		
 	}
