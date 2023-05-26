@@ -104,7 +104,8 @@ public class GuessWhoUI {
                    public void actionPerformed(ActionEvent e) {
                        // Handle button click event
                        // You can perform actions related to the clicked character here
-                	   System.out.println(character.getName() + " was clicked");
+                	   System.out.println(character.getName() + " was guessed");
+                	   //game.checkGuess(character.getName());
                    }
                });
                boardPanel.add(button); // Add the button to the panel

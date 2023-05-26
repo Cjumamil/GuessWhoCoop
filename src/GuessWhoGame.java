@@ -79,9 +79,7 @@ public class GuessWhoGame extends JPanel implements MouseListener, KeyListener, 
         String name = names.remove(index); // removes the name so there are no repeats
         return name;
 			  
-    	}
-    // push
-    
+    	}    
 
     private String randomSkinColor() {
         //return a random skin color
@@ -104,10 +102,10 @@ public class GuessWhoGame extends JPanel implements MouseListener, KeyListener, 
     	return hairTypes[index];   
     }	
 	
-	// initialize a boolean array to keep track of used categories.
-    private boolean[] usedHints = new boolean[4];
-    public String getHint() {
-//returns a random characteristic of selectedChar
+    	// initialize a boolean array to keep track of used categories.
+    	private boolean[] usedHints = new boolean[4];
+    	public String getHint() {
+    	//returns a random characteristic of selectedChar
     	Random random = new Random();
     	int hint = random.nextInt(4); // picks # 0-3 since 4 characteristics
     	while (usedHints[hint]) { // if this hint has been used already
@@ -138,7 +136,7 @@ public class GuessWhoGame extends JPanel implements MouseListener, KeyListener, 
     	for (boolean usedHint : usedHints) {
     		if (!usedHint) {
     				return getHint(); // try to get another hint if there are unused ones
-    		} //test
+    		} 
     	}
     	return "No more hints. You need to make a guess now!"; // if all hints have been used
     }
@@ -162,7 +160,7 @@ public class GuessWhoGame extends JPanel implements MouseListener, KeyListener, 
 	
 	public void startGame() {
 	  //  populateGameBoard();
-	    selectRandomChar();
+		selectedChar = selectRandomChar();
 	    
 	    for(int r = 0; r < 5; r++) {
 	    	for(int c = 0; c < 5; c++) {
@@ -214,7 +212,18 @@ public class GuessWhoGame extends JPanel implements MouseListener, KeyListener, 
 		return gameBoard[r][c];
 
 	}
-
+	
+	//Write all the guessing methods & logic here
+	
+	/*public boolean checkGuess(String guessedName) {
+		if(guessedName == selectedChar.getName()) {
+			return true;
+			System.out.println("You guessed CORRECT!");
+		}
+		return false;
+		System.out.println("Try Again Dummy!");
+	}
+*/
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
