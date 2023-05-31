@@ -78,7 +78,7 @@ public class GuessWhoGame extends JPanel implements MouseListener, KeyListener, 
                               "Skiddles", "Pluey", "Wuffez", "Bhqrone", "Mr. David",
                               "Guiness", "Neo", "Jumbo", "Milo", "Latte",
                               "Mocha", "Zaia", "Kona", "Finn", "Simba", "Cash",
-                              "Lance is fat", "Jaden likes Lady Boys", "COOP is sexy"};
+                              "Lance is fat", "COOP is short"};
         names.addAll(Arrays.asList(nameArray));
     }
 	
@@ -130,7 +130,7 @@ public class GuessWhoGame extends JPanel implements MouseListener, KeyListener, 
     	    }
     	    
     	    if (allHintsUsed) {
-    	        return "NO MORE HINTS YOU RETA*D!";
+    	        return "NO MORE HINTS!";
     	    }
     	    
     	    Random random = new Random();

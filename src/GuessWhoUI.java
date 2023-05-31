@@ -1,5 +1,4 @@
 import java.awt.BorderLayout;
-
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -7,7 +6,6 @@ import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -15,33 +13,79 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import java.awt.Font;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import java.util.Random;
 
 public class GuessWhoUI {
-  
-   private JFrame frame;
-   private JPanel boardPanel;
-   private JButton hintButt;
-   private JButton restartButton;
-   private GuessWhoGame game;
-   private int boardSize = 5;
-   
-   // characteristic layers
-   
-   private JLabel outlineLayer;
-   private JLabel skinLayer;
-   private JLabel shadesLayer;
-   private JLabel mouthLayer;
-   private JLabel hairLayer;
-   
-   
-   
-    public void startGame() {
-    	game.startGame();
-   }
-  
-   public GuessWhoUI() {
-       createUI();
-   }
+
+private JFrame frame;
+private JPanel boardPanel;
+private JButton hintButt;
+private JButton restartButton;
+private GuessWhoGame game;
+private int boardSize = 5;
+private JLabel titleLabel;
+private Timer timer;
+private JLabel outlineLayer;
+private JLabel skinLayer;
+private JLabel shadesLayer;
+private JLabel mouthLayer;
+private JLabel hairLayer;
+private String[] phrases = {
+"Don't forget to blink!", "Made by Cooper, Lance, and Jaden!", "Happy guessing!",
+"Don't let the characters fool you!", "May the odds be in your favor!", "Good Luck!"
+};
+
+	private Random rand = new Random();
+public GuessWhoUI() {
+createStartScreen();
+}
+
+	private void createStartScreen() {
+frame = new JFrame("Guess Who");
+frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+frame.setPreferredSize(new Dimension(1800, 900));
+frame.setResizable(false);
+JPanel startScreen = new JPanel();
+startScreen.setLayout(new BorderLayout());
+titleLabel = new JLabel("Welcome to Guess Who!", JLabel.CENTER);
+titleLabel.setFont(new Font("SansSerif", Font.BOLD, 100));
+startScreen.add(titleLabel, BorderLayout.CENTER);
+JButton startButton = new JButton("Start Game");
+startButton.setFont(new Font("SansSerif", Font.BOLD, 50));
+startButton.addActionListener(new ActionListener() {
+public void actionPerformed(ActionEvent e) {
+startScreen.setVisible(false);
+createUI();
+startGame();
+}
+});
+startScreen.add(startButton, BorderLayout.SOUTH);
+// Colorful background and random phrases
+startScreen.setBackground(new Color(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256)));
+JLabel phraseLabel = new JLabel(phrases[rand.nextInt(phrases.length)], JLabel.CENTER);
+phraseLabel.setFont(new Font("SansSerif", Font.PLAIN, 75));
+startScreen.add(phraseLabel, BorderLayout.NORTH);
+// Simple animation
+timer = new Timer(1000, new ActionListener() {
+
+		public void actionPerformed(ActionEvent e) {
+titleLabel.setForeground(new Color(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256)));
+}
+});
+timer.start();
+frame.add(startScreen);
+frame.pack();
+frame.setVisible(true);
+}
+
+		public void startGame() {
+timer.stop();
+game.startGame();
+}
+
  
    private void createUI() {
        frame = new JFrame("Guess Who");
@@ -50,7 +94,7 @@ public class GuessWhoUI {
        frame.setResizable(false);
        
        //default layers 
-
+      
        game = new GuessWhoGame(); // Create an instance of GuessWhoGame
       
        boardPanel = new JPanel(); // Create the panel to hold the game board
@@ -104,31 +148,29 @@ public class GuessWhoUI {
                button.add(outlineLayer);
                button.add(shadesLayer); 
                button.add(mouthLayer);
-               button.add(skinLayer);
-               
-                
+               button.add(skinLayer);               
                
                button.addActionListener(new ActionListener() {
             	    public void actionPerformed(ActionEvent e) {
             	    	
             	    	if(character.equals(game.getSelectedChar())){
             	   JOptionPane.showMessageDialog(null, "YOU'RE A WEINER!");
-       	        if (button.isEnabled()) {
-    	            button.setBackground(Color.green); // Change the background color
-
-    	            // Perform other actions related to the clicked cell here36
-    	            System.out.println(character.getName() + " was guessed");
-    	            
-    	            gameOver();
-    	        }	   
-               }else {
-            	   JOptionPane.showMessageDialog(null, "Try Again!");
-       	        if (button.isEnabled()) {
-    	            button.setBackground(Color.gray); // Change the background color
-    	            // Perform other actions related to the clicked cell here
-    	            System.out.println(character.getName() + " was guessed");
-    	        }
-               }
+	       	        if (button.isEnabled()) {
+	    	            button.setBackground(Color.green); // Change the background color
+	
+	    	            // Perform other actions related to the clicked cell here36
+	    	            System.out.println(character.getName() + " was guessed");
+	    	            
+	    	            gameOver();
+	    	        }	   
+	               }else {
+	            	   	JOptionPane.showMessageDialog(null, "Try Again!");
+		       	        if (button.isEnabled()) {
+		    	            button.setBackground(Color.gray); // Change the background color
+		    	            // Perform other actions related to the clicked cell here
+		    	            System.out.println(character.getName() + " was guessed");
+		    	        }
+	               }
                 	    button.setEnabled(false); // Make the button unclickable
            	    }
 
@@ -142,7 +184,8 @@ public class GuessWhoUI {
            public void actionPerformed(ActionEvent e) {
                String hint = game.getHint();
                System.out.println(hint);
-               JOptionPane.showMessageDialog(null, hint);
+               ((JButton) e.getSource()).setText(hint);
+            //   JOptionPane.showMessageDialog(null, hint);
            }
        });
        
@@ -166,6 +209,9 @@ public class GuessWhoUI {
            }
        });
        
+       
+       
+       
       
        frame.add(boardPanel, BorderLayout.NORTH); // Add the board panel to the frame
       
@@ -176,8 +222,6 @@ public class GuessWhoUI {
 
        picture.add(hintButt, BorderLayout.NORTH);
        picture.add(restartButton, BorderLayout.NORTH);
-    
-      
      
        frame.add(picture);
        frame.pack(); // Pack the components to fit the frame size
