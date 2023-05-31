@@ -37,8 +37,20 @@ public class GuessWhoGame extends JPanel implements MouseListener, KeyListener, 
         populateNames(); // Populate the names ArrayList
         populateGameBoard();
     }
-
-
+    
+	public void startGame() {
+		  //  populateGameBoard();
+			selectedChar = selectRandomChar();
+		    
+		    for(int r = 0; r < 5; r++) {
+		    	for(int c = 0; c < 5; c++) {
+		    		Character person = gameBoard[r][c];
+		    		System.out.println(person.getName() + " " + person.getHair() + " " +  person.getSkinColor() + " hasGlasses: " +  person.hasGlasses() + " hasSmile: " +  person.hasSmile());
+		    	}
+		    }
+		  
+		}
+    
 	
 	public void populateGameBoard() {
 		//populates the board w/ characters
@@ -65,7 +77,8 @@ public class GuessWhoGame extends JPanel implements MouseListener, KeyListener, 
                               "Arhaan", "Adam", "Von", "Coopaloop", "Zip",
                               "Skiddles", "Pluey", "Wuffez", "Bhqrone", "Mr. David",
                               "Guiness", "Neo", "Jumbo", "Milo", "Latte",
-                              "Mocha", "Zaia", "Kona", "Finn", "Simba", "Cash"};
+                              "Mocha", "Zaia", "Kona", "Finn", "Simba", "Cash",
+                              "Lance is fat", "Jaden likes Lady Boys", "COOP is sexy"};
         names.addAll(Arrays.asList(nameArray));
     }
 	
@@ -104,42 +117,51 @@ public class GuessWhoGame extends JPanel implements MouseListener, KeyListener, 
 	
     	// initialize a boolean array to keep track of used categories.
     	private boolean[] usedHints = new boolean[4];
+    	
+    	
     	public String getHint() {
-    	//returns a random characteristic of selectedChar
-    	Random random = new Random();
-    	int hint = random.nextInt(4); // picks # 0-3 since 4 characteristics
-    	while (usedHints[hint]) { // if this hint has been used already
-    		hint = random.nextInt(4); // get another random hint
+    	    // Check if all hints have been used
+    	    boolean allHintsUsed = true;
+    	    for (boolean usedHint : usedHints) {
+    	        if (!usedHint) {
+    	            allHintsUsed = false;
+    	            break;
+    	        }
+    	    }
+    	    
+    	    if (allHintsUsed) {
+    	        return "NO MORE HINTS YOU RETA*D!";
+    	    }
+    	    
+    	    Random random = new Random();
+    	    int hint = random.nextInt(4); // picks # 0-3 since 4 characteristics
+    	    while (usedHints[hint]) { // if this hint has been used already
+    	        hint = random.nextInt(4); // get another random hint
+    	    }
+    	    
+    	    usedHints[hint] = true; // mark this hint as used
+    	    
+    	    if (hint == 0) {
+    	        if (selectedChar.hasGlasses()) {
+    	            return "Hint: The character has glasses";
+    	        } else {
+    	            return "Hint: The character does not have glasses";
+    	        }
+    	    } else if (hint == 1) {
+    	        return "Hint: The character's skin color is " + selectedChar.getSkinColor();
+    	    } else if (hint == 2) {
+    	        return "Hint: The character's hair color is " + selectedChar.getHair();
+    	    } else if (hint == 3) {
+    	        if (selectedChar.hasSmile()) {
+    	            return "Hint: The character is smiling";
+    	        } else {
+    	            return "Hint: The character is not smiling";
+    	        }
+    	    }
+    	    
+    	    return "COOP IS SO DAMN SEXY MMMMMMMMMMMMM!!!"; // This line is not reachable, but included for completeness
     	}
-    	usedHints[hint] = true; // mark this hint as used
-    	if (hint == 0) {
-    		if (selectedChar.hasGlasses()) {
-    			return "Hint: The character has glasses";
-    		} else {
-    			return "Hint: The character does not have glasses";
-    		}
-    	}
-    	if (hint == 1) {
-    		return "Hint: The character's skin color is " + selectedChar.getSkinColor();
-    	}
-    	if (hint == 2) {
-    		return "Hint: The character's hair color is " + selectedChar.getHair();
-    	}
-    	if (hint == 3) {
-    		if (selectedChar.hasSmile()) {
-    			return "Hint: The character is smiling";
-    		} else {
-    			return "Hint: The character is not smiling";
-    		}
-    	}
-    	// Check if all hints have been used
-    	for (boolean usedHint : usedHints) {
-    		if (!usedHint) {
-    				return getHint(); // try to get another hint if there are unused ones
-    		} 
-    	}
-    	return "No more hints. You need to make a guess now!"; // if all hints have been used
-    }
+
 
 
 	
@@ -158,51 +180,10 @@ public class GuessWhoGame extends JPanel implements MouseListener, KeyListener, 
 	    
 	}
 	
-	public void startGame() {
-	  //  populateGameBoard();
-		selectedChar = selectRandomChar();
-	    
-	    for(int r = 0; r < 5; r++) {
-	    	for(int c = 0; c < 5; c++) {
-	    		Character person = gameBoard[r][c];
-	    		System.out.println(person.getName() + " " + person.getHair() + " " +  person.getSkinColor() + " hasGlasses: " +  person.hasGlasses() + " hasSmile: " +  person.hasSmile());
-	    	}
-	    }
-	  
-	}
-	
-	public boolean guessCheck() {
-		if(guesses > 0) {
-			return true;
-			//still guesses remaining, continue game
-		}
-		guesses--;
-		
-		if(guesses == 0) {
-			gameOver(null);
-			return false;
-		}
-		return false; 
-			
+	public Character getSelectedChar() {
+		return selectedChar;
 	}
 
-
-		
-	public void gameOver(Graphics g) {
-		if(guesses == 0) {
-			
-			g.setColor(Color.black);
-			g.fillRect(0,0,900,600);
-			g.setColor(Color.white);
-			Font boldFont = new Font("SansSerif", Font.BOLD, 100);
-			g.drawString("Round Over", 330, 300);
-			
-		}
-	}
-		
-	
-	
-	
 
 	public int getBoardSize() {
 		return boardSize;
@@ -213,17 +194,6 @@ public class GuessWhoGame extends JPanel implements MouseListener, KeyListener, 
 
 	}
 	
-	//Write all the guessing methods & logic here
-	
-	/*public boolean checkGuess(String guessedName) {
-		if(guessedName == selectedChar.getName()) {
-			return true;
-			System.out.println("You guessed CORRECT!");
-		}
-		return false;
-		System.out.println("Try Again Dummy!");
-	}
-*/
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
