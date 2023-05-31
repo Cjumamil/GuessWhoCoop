@@ -116,7 +116,7 @@ public class GuessWhoUI {
        	        if (button.isEnabled()) {
     	            button.setBackground(Color.green); // Change the background color
 
-    	            // Perform other actions related to the clicked cell here
+    	            // Perform other actions related to the clicked cell here36
     	            System.out.println(character.getName() + " was guessed");
     	            
     	            gameOver();

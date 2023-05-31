@@ -180,8 +180,9 @@ public class GuessWhoGame extends JPanel implements MouseListener, KeyListener, 
 	    
 	}
 	
-	public String getSelectedChar() {
-		return selectedChar.getName();
+	public Character getSelectedChar() {
+		//return selectedChar.getName();
+		return selectedChar;
 	}
 
 
