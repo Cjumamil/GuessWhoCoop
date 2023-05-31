@@ -51,8 +51,6 @@ public class GuessWhoUI {
        
        //default layers 
 
-
-       
        game = new GuessWhoGame(); // Create an instance of GuessWhoGame
       
        boardPanel = new JPanel(); // Create the panel to hold the game board
@@ -152,7 +150,7 @@ public class GuessWhoUI {
        restartButton.addActionListener(new ActionListener() {
            public void actionPerformed(ActionEvent e) {
               try {
-            	  JOptionPane.showMessageDialog(null, "New Game Starting");
+            	  JOptionPane.showMessageDialog(null, "New Game Starting . .");
             	    Thread.sleep(2000); // = 2 seconds
             	} catch (InterruptedException e1) {
             	    e1.printStackTrace();
