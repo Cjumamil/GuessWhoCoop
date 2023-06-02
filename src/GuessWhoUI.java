@@ -45,7 +45,7 @@ createStartScreen();
 
 	private void createStartScreen() {
 frame = new JFrame("Guess Who");
-frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 frame.setPreferredSize(new Dimension(1800, 900));
 frame.setResizable(false);
 JPanel startScreen = new JPanel();
@@ -73,6 +73,7 @@ timer = new Timer(1000, new ActionListener() {
 
 		public void actionPerformed(ActionEvent e) {
 titleLabel.setForeground(new Color(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256)));
+
 }
 });
 timer.start();
@@ -164,7 +165,7 @@ game.startGame();
 	    	            gameOver();
 	    	        }	   
 	               }else {
-	            	   	JOptionPane.showMessageDialog(null, "Try Again!");
+	            	   //	JOptionPane.showMessageDialog(null, "Try Again!");
 		       	        if (button.isEnabled()) {
 		    	            button.setBackground(Color.gray); // Change the background color
 		    	            // Perform other actions related to the clicked cell here
@@ -182,6 +183,10 @@ game.startGame();
        hintButt = new JButton("Get Hint"); // Create the hint button
        hintButt.addActionListener(new ActionListener() {
            public void actionPerformed(ActionEvent e) {
+        	   
+        	   if(game.getHint().equals("NO MORE HINTS!")) {
+        		   hintButt.setEnabled(false);
+        	   }
                String hint = game.getHint();
                System.out.println(hint);
                ((JButton) e.getSource()).setText(hint);
