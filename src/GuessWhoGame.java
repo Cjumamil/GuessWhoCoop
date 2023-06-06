@@ -1,8 +1,4 @@
 //import java.awt.event.ActionEvent;
-//import java.awt.event.ActionListener;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -11,7 +7,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Random;
 
 
@@ -21,6 +16,8 @@ import javax.swing.JPanel;
 //import javax.swing.JPanel;
 
 public class GuessWhoGame extends JPanel implements MouseListener, KeyListener, ActionListener {
+	
+	
 	
 	//Use a 2D array to create a 5x5 game board
 	
@@ -77,7 +74,7 @@ public class GuessWhoGame extends JPanel implements MouseListener, KeyListener, 
                               "Arhaan", "Adam", "Von", "Coopaloop", "Zip",
                               "Skiddles", "Pluey", "Wuffez", "Bhqrone", "Mr. David",
                               "Guiness", "Neo", "Jumbo", "Milo", "Latte",
-                              "Mocha", "Zaia", "Kona", "Finn", "Simba", "Cash",
+                              "Mocha", "Zaia", "Kona", "Fin", "Simba", "Cash",
                               "Lance is fat", "COOP is short"};
         names.addAll(Arrays.asList(nameArray));
     }
@@ -135,11 +132,13 @@ public class GuessWhoGame extends JPanel implements MouseListener, KeyListener, 
     	    
     	    Random random = new Random();
     	    int hint = random.nextInt(4); // picks # 0-3 since 4 characteristics
+    	    
     	    while (usedHints[hint]) { // if this hint has been used already
     	        hint = random.nextInt(4); // get another random hint
     	    }
     	    
     	    usedHints[hint] = true; // mark this hint as used
+    	    System.out.println(hint);
     	    
     	    if (hint == 0) {
     	        if (selectedChar.hasGlasses()) {
@@ -228,10 +227,7 @@ public class GuessWhoGame extends JPanel implements MouseListener, KeyListener, 
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
-	
-		
-		
+
 	}
 
 	@Override
