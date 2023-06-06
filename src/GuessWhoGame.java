@@ -33,6 +33,11 @@ public class GuessWhoGame extends JPanel implements MouseListener, KeyListener, 
         names = new ArrayList<String>(); // Initialize the names ArrayList
         populateNames(); // Populate the names ArrayList
         populateGameBoard();
+        System.out.println("here");
+        for(int i = 0; i < names.size(); i++) {
+        	System.out.println(names.get(i));
+        }
+        System.out.println("here2");
     }
     
 	public void startGame() {

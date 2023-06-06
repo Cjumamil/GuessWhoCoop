@@ -269,6 +269,7 @@ public class GuessWhoUI {
                game = new GuessWhoGame(); // create a new game instance
                incorrectGuessCount = 0;  // reset incorrectGuessCount to 0
                createUI(); //create a new UI after the game has been reset
+               game.startGame(); // starts the newly created game  @Author Nikhil :)
                System.out.println("New Game Started");              
            }
        });
